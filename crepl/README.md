@@ -1,7 +1,7 @@
-# CREPL
+# crepl
 
-This is C Read-Eval-Print-Loop, 
-which is similar to python shell interface.
+`crepl`, the abbreviation of C Read-Eval-Print-Loop, 
+is an interactive shell for C like the one for python.
 
 `crepl` reads expressions from `stdin`, and output result
 to `stdout`. It only accepts the following two kind of inputs

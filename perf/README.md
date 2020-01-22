@@ -1,4 +1,4 @@
-# Perf
+# perf
 
 This is a simplified profiler based on `strace`
 that counts syscall times and reports a summary on the program's exit.

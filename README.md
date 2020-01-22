@@ -6,14 +6,14 @@ Here are short descriptions for each.
 
 - `pstree`: A simplified version as the one on linux.
 - `perf`: A naive version of perf just to collect and calculate time distributions of system calls.
-- `crepl`: C Read-Eval-Print-Loop like python interactive shell.
+- `crepl`: An interactive shell for C like the one that python provides.
 - `ping`: A simplified version as the one on linux.
 
 All projects of these command line programs are independent
 and they are placed in sub-directories with the same name.
-You can learn more from README in each project.
+You can learn more from `README` in each project.
 
 ## Build
-The README in each project describes how to compile the project respectively.
+The `README` in each project describes how to compile the project respectively.
 However, we provide `Makefile` in the root directory to compile all the projects
 with `make` for convenience.
