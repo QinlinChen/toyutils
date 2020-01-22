@@ -1,4 +1,4 @@
-SUB_DIR = pstree perf crepl ping
+SUB_DIR = pstree perf crepl ping codesim
 
 .PHONY: build clean
 
