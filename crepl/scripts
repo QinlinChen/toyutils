@@ -1,0 +1,4 @@
+int fib(int n) { return (n <= 1) ? 1 : fib(n - 1) + fib(n - 2); }
+int fibsum(int n) { int s = 0; for (int i = 1; i <= n; i++) s += fib(i); return s; }
+fib(1) + fib(2) + fib(3) + fib(4) + fib(5)
+fibsum(5)
