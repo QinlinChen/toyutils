@@ -1,3 +1,6 @@
+#define _POXIS_C_SOURCE 200809L
+#define _XOPEN_SOURCE 700
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -75,8 +78,14 @@ void dl_error(const char *msg) {
 
 char *readline(const char *prompt, char *buf, int size, FILE *stream) {
     char *ret_val, *find;
+	struct stat sbuf;
 
-    printf("%s", prompt);
+	if (fstat(fileno(stream), &sbuf) != 0)
+		unix_error("fstat error");
+
+	if (!S_ISREG(sbuf.st_mode))
+        printf("%s", prompt);
+
     if (((ret_val = fgets(buf, size, stream)) == NULL) && ferror(stream))
         app_error("readline error");
 
@@ -85,7 +94,7 @@ char *readline(const char *prompt, char *buf, int size, FILE *stream) {
         if (find)
             *find = '\0';
         else 
-            while (getchar() != '\n')
+            while (fgetc(stream) != '\n')
                 continue;
     }
 
