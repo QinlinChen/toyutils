@@ -53,7 +53,7 @@ void push_indent(int comm_len, int is_last_child);
 void pop_indent();
 
 /* main functions */
-void show_usage(const char *name);
+void show_usage(FILE *stream, const char *comm);
 void show_version();
 void recursive_show_tree(PROC *node);
 void show_tree() { global.size = 0; recursive_show_tree(find_proc(1)); }
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
             case 'n': global.numeric_sort = 1; break;
             case 'V': show_version(); break;
             /* 0, ?, etc. */
-            default: show_usage(argv[0]);
+            default: show_usage(stderr, argv[0]);
         }
     }
 
@@ -251,14 +251,14 @@ void pop_indent() {
     global.size--;
 }
 
-void show_usage(const char *name) {
-    printf("Usage: %s [-p, --show-pids] "
-        "[-n, --numeric-sort] [-V, --version]\n", name);
+void show_usage(FILE *stream, const char *comm) {
+    fprintf(stream, "Usage: %s [-p, --show-pids] "
+        "[-n, --numeric-sort] [-V, --version]\n", comm);
     exit(EXIT_FAILURE);
 }
 
 void show_version() {
-    printf("pstree 0.1\n"
+    fprintf(stderr, "pstree 0.1\n"
         "Copyright (C) 2018 Qinlin Chen\n\n"
         "This is free software with NO WARRANTY, but you can't copy it "
         "for your PROGRAMMING ASSIGNMENT of any courses!\n");
