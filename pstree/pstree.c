@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+#include "hook/hook.h"
+
 #define MAX_COMM_LEN 270
 #define MAXLINE 1024
 #define MAXSIZE 512
@@ -37,6 +39,9 @@ struct {
     int is_last_child[MAXSIZE];
     int size;
 } global;
+
+/* utils */
+void *malloc_or_die(size_t size);
 
 /* proc handle functions */
 PROC *new_proc(const char *comm, pid_t pid);
@@ -97,6 +102,16 @@ int main(int argc, char *argv[]) {
     exit(EXIT_SUCCESS);
 }
 
+void *malloc_or_die(size_t size)
+{
+    void *result = malloc(size);
+    if (!result) {
+        perror("malloc error");
+        exit(EXIT_FAILURE);
+    }
+    return result;
+}
+
 PROC *find_proc(pid_t pid) {
     PROC *walk;
 
@@ -108,7 +123,7 @@ PROC *find_proc(pid_t pid) {
 }
 
 PROC *new_proc(const char *comm, pid_t pid) {
-    PROC *proc = (PROC *)malloc(sizeof(*proc));
+    PROC *proc = (PROC *)malloc_or_die(sizeof(*proc));
 
     strcpy(proc->comm, comm);
     proc->pid = pid;
@@ -144,7 +159,7 @@ int proc_comp(PROC *left, PROC *right) {
 void add_child(PROC *parent, PROC *child) {
     CHILD *new, **walk;
 
-    new = malloc(sizeof(*new));
+    new = malloc_or_die(sizeof(*new));
     new->child = child;
     for (walk = &parent->children; *walk; walk = &(*walk)->next)
         if (proc_comp((*walk)->child, child) >= 0)
