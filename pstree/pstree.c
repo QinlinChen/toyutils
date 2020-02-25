@@ -7,8 +7,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-#include "hook/hook.h"
-
 #define MAX_COMM_LEN 270
 #define MAXLINE 1024
 #define MAXSIZE 512
